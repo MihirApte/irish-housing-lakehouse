@@ -1,0 +1,82 @@
+table _Measures
+	lineageTag: 32f64b92-f593-4be4-b051-4da04edb2911
+
+	measure 'Median Price' = CALCULATE ( MEDIAN ( fact_sale[price_eur] ), fact_sale[is_non_market] = FALSE () )
+		formatString: #,0
+		lineageTag: f5fea904-80b7-491c-b3eb-d6ab32800c59
+
+	measure 'Market Sales' = CALCULATE ( COUNTROWS ( fact_sale ), fact_sale[is_non_market] = FALSE () )
+		formatString: #,0
+		lineageTag: ecd434fa-1672-4436-81ea-e4e2f426753c
+
+	measure 'All Registered Sales' = COUNTROWS ( fact_sale )
+		formatString: #,0
+		lineageTag: 3ebef6ba-7139-483d-9beb-21a4d546de1c
+
+	measure 'Non-market Share' =
+			DIVIDE (
+			    CALCULATE ( COUNTROWS ( fact_sale ), fact_sale[is_non_market] = TRUE () ),
+			    COUNTROWS ( fact_sale )
+			)
+		formatString: 0.0%
+		lineageTag: 4ef239ea-cf64-4756-8782-686f9f7852c7
+
+	measure 'Median Price YoY %' =
+			VAR cur = [Median Price]
+			VAR prev = CALCULATE ( [Median Price], SAMEPERIODLASTYEAR ( dim_date[date] ) )
+			RETURN DIVIDE ( cur - prev, prev )
+		formatString: 0.0%
+		lineageTag: 76fdde12-07ab-45e1-9ef4-817f54e93850
+
+	measure 'House Price Index' = CALCULATE ( AVERAGE ( fact_price_index[value] ), fact_price_index[statistic_code] = "HPM09C01" )
+		formatString: 0.0
+		lineageTag: ae28ab1a-1556-4b64-9d05-3c71f42fee91
+
+	measure 'Avg Monthly Rent' =
+			CALCULATE (
+			    AVERAGE ( fact_rent[avg_monthly_rent] ),
+			    fact_rent[bedrooms] = "All bedrooms",
+			    fact_rent[property_type] = "All property types"
+			)
+		formatString: #,0
+		lineageTag: 97693d40-5b72-4aae-a08d-658a67975171
+
+	measure 'Price to Income' = AVERAGE ( county_year_affordability[price_to_income] )
+		formatString: 0.0
+		lineageTag: e01fd009-3c3d-4d0a-bf6f-48b769185ac9
+
+	measure 'Price to Rent' = AVERAGE ( county_year_affordability[price_to_rent] )
+		formatString: 0.0
+		lineageTag: db678cad-ca8e-4df5-bcb9-55ae2619057f
+
+	measure 'Outlier Sales' = COUNTROWS ( sale_outliers )
+		formatString: #,0
+		lineageTag: 1c72a7b5-1d69-4d85-bae7-06ec7b81f13d
+
+	measure 'Index National' = CALCULATE ( AVERAGE ( fact_price_index[value] ), fact_price_index[statistic_code] = "HPM09C01", fact_price_index[property_type] = "all residential properties", dim_geography[geography] = "National" )
+		formatString: 0.0
+		lineageTag: fc657f0e-71d0-477a-be13-1d2540886999
+
+	measure 'Index Dublin' = CALCULATE ( AVERAGE ( fact_price_index[value] ), fact_price_index[statistic_code] = "HPM09C01", fact_price_index[property_type] = "all residential properties", dim_geography[geography] = "Dublin" )
+		formatString: 0.0
+		lineageTag: 90b9f2a0-95bf-4751-bd3d-d097f3200d31
+
+	measure 'Index National ex Dublin' = CALCULATE ( AVERAGE ( fact_price_index[value] ), fact_price_index[statistic_code] = "HPM09C01", fact_price_index[property_type] = "all residential properties", dim_geography[geography] = "National excluding Dublin" )
+		formatString: 0.0
+		lineageTag: 5e2f558b-6163-427c-b16b-71c64eda10ef
+
+	column Dummy
+		dataType: string
+		isHidden
+		lineageTag: a75317ac-ecdc-48a4-bf2e-a224affb650c
+		summarizeBy: none
+		sourceColumn: Dummy
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Dummy = text], {})
+				in
+				    Source
+

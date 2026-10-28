@@ -1,0 +1,11 @@
+gold_table,built_from_silver,built_from_bronze,original_source,used_by_report_pages
+fact_sale,ppr_sales,ppr_raw,Property Price Register (PSRA),Market Overview; County Comparison
+fact_price_index,hpm09_price_index,cso_hpm09_raw,CSO HPM09,Market Overview
+fact_rent,"rih02_rent, ref_county",cso_rih02_raw,CSO RIH02,County Comparison; Affordability (via county_year_affordability)
+fact_income,"income_county, ref_county",cso_raa02_raw,CSO RAA02,Affordability (via county_year_affordability)
+county_year_affordability,"fact_sale, fact_rent, fact_income (Gold)",,"PSRA, CSO RIH02, CSO RAA02",Affordability
+sale_outliers,fact_sale (Gold),,PSRA,None yet (Outlier Sales measure exists in the model)
+dim_date,generated calendar,,Generated,Market Overview; County Comparison
+dim_county,ref_county,,Hand written reference list,County Comparison; Affordability
+dim_geography,hpm09_price_index,cso_hpm09_raw,CSO HPM09,Market Overview
+dim_property_type,ppr_sales,ppr_raw,Property Price Register (PSRA),Market Overview; County Comparison

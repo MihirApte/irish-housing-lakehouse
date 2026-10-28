@@ -1,0 +1,53 @@
+table fact_income
+	lineageTag: 7b5bdaf7-0419-4a0c-bdbd-05ee327e7977
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a2d9935-19ab-4f22-b985-e613f24b4e82
+		summarizeBy: sum
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 208fddab-07b6-4e4b-afd0-9a962fe21417
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column county_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 05f63e9e-efbb-49e1-8799-5e2fef32b794
+		summarizeBy: none
+		sourceColumn: county_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column disposable_income_per_person_eur
+		dataType: double
+		lineageTag: b01056fa-dfbf-42f6-8d96-82dee3f24f60
+		summarizeBy: sum
+		sourceColumn: disposable_income_per_person_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_income = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    fact_income_Table = gold_Schema{[Name="fact_income",Kind="Table"]}[Data]
+				in
+				    fact_income_Table
+
+	annotation PBI_ResultType = Table
+

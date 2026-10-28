@@ -1,0 +1,32 @@
+# Secrets and local config
+.env
+.env.*
+!.env.example
+*.token
+*.pat
+
+# Markdown: keep only the main README
+*.md
+!/README.md
+
+# Power BI local files (the .pbip project folder IS tracked; local caches and binaries are not)
+*.pbix
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Python and notebook noise
+__pycache__/
+*.pyc
+.venv/
+.ipynb_checkpoints/
+
+# Raw data and OS files
+data/raw/
+*.zip
+.DS_Store
+Thumbs.db
+
+# Local backups and helper scripts
+_backup/
+_edit_model.py
+images/*.pdf

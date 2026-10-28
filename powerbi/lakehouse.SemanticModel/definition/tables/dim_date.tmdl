@@ -1,0 +1,116 @@
+table dim_date
+	lineageTag: 10a4b69b-c8df-474b-bcfe-e920c9df8601
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: e824d454-bf9d-4f81-9958-58dee0f78094
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column date
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 41c16010-3c23-4396-841e-d71a52f6665d
+		summarizeBy: none
+		sourceColumn: date
+
+		variation Variation
+			isDefault
+			relationship: 983e072c-42f3-4864-84e9-5f4a8121ee78
+			defaultHierarchy: LocalDateTable_26ab332d-f2c3-432d-a2d7-e93ec37a4e2b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 396ede6a-6873-456d-ac7e-c4b29e9c0d22
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column quarter
+		dataType: int64
+		formatString: 0
+		lineageTag: 83111dc7-46bb-4595-82d6-fafc32a22ad7
+		summarizeBy: sum
+		sourceColumn: quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_number
+		dataType: int64
+		formatString: 0
+		lineageTag: 34641a9d-4f0d-4cb2-88a4-469c7cd9ad6a
+		summarizeBy: sum
+		sourceColumn: month_number
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_name
+		dataType: string
+		lineageTag: d25456db-d1c0-4a6a-bf32-2b068df67501
+		summarizeBy: none
+		sourceColumn: month_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column month_start
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: a4ea7ac8-747a-45ba-8ee5-a52dd64cdb6c
+		summarizeBy: none
+		sourceColumn: month_start
+
+		variation Variation
+			isDefault
+			relationship: 64c35b33-cb80-4c91-8fb0-ceaf92e388e2
+			defaultHierarchy: LocalDateTable_035fb761-cbfd-48e4-a65d-9d1171bc2532.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column half
+		dataType: int64
+		formatString: 0
+		lineageTag: b868dce5-5704-4ad5-9d43-ee25fd91366f
+		summarizeBy: sum
+		sourceColumn: half
+
+		annotation SummarizationSetBy = Automatic
+
+	column year_half
+		dataType: string
+		lineageTag: 606c6f59-ed12-40a7-a2ef-a988dec20008
+		summarizeBy: none
+		sourceColumn: year_half
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_weekend
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: a4d6df93-a611-4102-bd3a-9279c06a5ae4
+		summarizeBy: none
+		sourceColumn: is_weekend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_date_Table = gold_Schema{[Name="dim_date",Kind="Table"]}[Data]
+				in
+				    dim_date_Table
+

@@ -1,0 +1,36 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.14.0/schema.json",
+  "name": "4ad966c032d89a144ff3",
+  "position": {
+    "x": 20,
+    "y": 80,
+    "z": 2000,
+    "height": 44,
+    "width": 1240,
+    "tabOrder": 2000
+  },
+  "visual": {
+    "visualType": "textbox",
+    "objects": {
+      "general": [
+        {
+          "properties": {
+            "paragraphs": [
+              {
+                "textRuns": [
+                  {
+                    "value": "Price to income uses CSO disposable income per person, not per household. Income data ends in 2024 and 2026 sales are partial. Price to rent is the median sale price divided by twelve times the average monthly rent. Non-market sales are excluded.",
+                    "textStyle": {
+                      "fontSize": "11pt"
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "drillFilterOtherVisuals": true
+  }
+}

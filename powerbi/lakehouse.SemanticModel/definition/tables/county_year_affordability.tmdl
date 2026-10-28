@@ -1,0 +1,93 @@
+table county_year_affordability
+	lineageTag: 2b178570-6aed-401f-a963-be6b6bc835d9
+
+	column county_key
+		dataType: int64
+		formatString: 0
+		lineageTag: cf06326e-c054-497a-ad00-1fdc577bbf01
+		summarizeBy: none
+		sourceColumn: county_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: a62cbd00-37bc-447e-bcd8-1d1f7f1a4b33
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column median_price
+		dataType: double
+		lineageTag: ba9cc5bc-dcd2-40d1-90af-db125c39c855
+		summarizeBy: sum
+		sourceColumn: median_price
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column market_sales
+		dataType: int64
+		formatString: 0
+		lineageTag: 58dd0a16-701d-4383-aa3e-053469dbde96
+		summarizeBy: sum
+		sourceColumn: market_sales
+
+		annotation SummarizationSetBy = Automatic
+
+	column disposable_income_per_person_eur
+		dataType: double
+		lineageTag: 9779ecc1-e59e-449e-88ec-0ebdba74f4d6
+		summarizeBy: sum
+		sourceColumn: disposable_income_per_person_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column avg_monthly_rent
+		dataType: double
+		lineageTag: 746d7357-4716-4218-922c-e4593d6cf3b3
+		summarizeBy: sum
+		sourceColumn: avg_monthly_rent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column price_to_income
+		dataType: double
+		lineageTag: ff3a5b93-2215-42e8-a1dc-6bcd854899c5
+		summarizeBy: sum
+		sourceColumn: price_to_income
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column price_to_rent
+		dataType: double
+		lineageTag: e20da6f1-cf0f-457e-8531-7140c88b2a81
+		summarizeBy: sum
+		sourceColumn: price_to_rent
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition county_year_affordability = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    county_year_affordability_Table = gold_Schema{[Name="county_year_affordability",Kind="Table"]}[Data]
+				in
+				    county_year_affordability_Table
+
+	annotation PBI_ResultType = Table
+

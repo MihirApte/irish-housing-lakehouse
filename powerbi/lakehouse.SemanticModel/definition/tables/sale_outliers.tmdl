@@ -1,0 +1,79 @@
+table sale_outliers
+	lineageTag: 402d8666-1946-4101-b4a0-755ba91bc8e4
+
+	column sale_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 3e651f4b-d445-4912-b0fc-9d21d3279a39
+		summarizeBy: sum
+		sourceColumn: sale_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column county_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 93242d60-88cf-42bd-8a35-b7a983014a73
+		summarizeBy: none
+		sourceColumn: county_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column year
+		dataType: int64
+		formatString: 0
+		lineageTag: 711e120f-d369-435c-a73f-4fcad35622a6
+		summarizeBy: sum
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_condition
+		dataType: string
+		lineageTag: cfad5079-b7a9-4c65-b86a-c5785a85166b
+		summarizeBy: none
+		sourceColumn: property_condition
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_eur
+		dataType: double
+		lineageTag: 42b69c43-43fc-4deb-823e-313e428ad9a6
+		summarizeBy: sum
+		sourceColumn: price_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column typical_price_eur
+		dataType: double
+		lineageTag: 9283537b-3421-44f9-8cd2-1416ac9446d6
+		summarizeBy: sum
+		sourceColumn: typical_price_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column direction
+		dataType: string
+		lineageTag: e332e472-9c34-40d6-9ae9-4bd8ae062664
+		summarizeBy: none
+		sourceColumn: direction
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sale_outliers = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    sale_outliers_Table = gold_Schema{[Name="sale_outliers",Kind="Table"]}[Data]
+				in
+				    sale_outliers_Table
+
+	annotation PBI_ResultType = Table
+

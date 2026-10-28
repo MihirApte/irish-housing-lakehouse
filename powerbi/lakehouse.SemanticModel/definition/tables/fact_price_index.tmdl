@@ -1,0 +1,74 @@
+table fact_price_index
+	lineageTag: f2def71a-b302-48cb-9b10-a742ae99abf6
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: d0b1a492-d267-434d-a0a2-e132965f6c36
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 3bd95274-438a-4cb2-ae85-5f5ed98d5be0
+		summarizeBy: none
+		sourceColumn: geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_type
+		dataType: string
+		lineageTag: 2bb6b926-3248-4d9a-a0e3-f28d9b53ea70
+		summarizeBy: none
+		sourceColumn: property_type
+
+		annotation SummarizationSetBy = Automatic
+
+	column statistic_code
+		dataType: string
+		lineageTag: b0547284-e661-4097-a269-a7899093f3d8
+		summarizeBy: none
+		sourceColumn: statistic_code
+
+		annotation SummarizationSetBy = Automatic
+
+	column statistic_label
+		dataType: string
+		lineageTag: 433d06f1-70c6-43b9-9860-212bbea3be20
+		summarizeBy: none
+		sourceColumn: statistic_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column unit
+		dataType: string
+		lineageTag: 19ffcc06-3dc7-48e3-b49e-dd0232007a13
+		summarizeBy: none
+		sourceColumn: unit
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 49ae2c55-3510-4679-8568-2c060832541a
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition fact_price_index = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    fact_price_index_Table = gold_Schema{[Name="fact_price_index",Kind="Table"]}[Data]
+				in
+				    fact_price_index_Table
+

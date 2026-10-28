@@ -1,0 +1,39 @@
+table dim_geography
+	lineageTag: 64db95f8-4ffe-447c-8de1-a1ab77e2622f
+
+	column geography_key
+		dataType: int64
+		formatString: 0
+		lineageTag: ba7dd527-1890-4ee1-a935-af1d655885f6
+		summarizeBy: none
+		sourceColumn: geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography
+		dataType: string
+		lineageTag: 53d32295-11f9-4d93-9966-645c9aa86541
+		summarizeBy: none
+		sourceColumn: geography
+
+		annotation SummarizationSetBy = Automatic
+
+	column geography_level
+		dataType: string
+		lineageTag: b4765f05-e6d9-41ce-b474-88bcb965e002
+		summarizeBy: none
+		sourceColumn: geography_level
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_geography = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_geography_Table = gold_Schema{[Name="dim_geography",Kind="Table"]}[Data]
+				in
+				    dim_geography_Table
+

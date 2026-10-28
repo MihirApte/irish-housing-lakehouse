@@ -1,0 +1,58 @@
+relationship 983e072c-42f3-4864-84e9-5f4a8121ee78
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.date
+	toColumn: LocalDateTable_26ab332d-f2c3-432d-a2d7-e93ec37a4e2b.Date
+
+relationship 64c35b33-cb80-4c91-8fb0-ceaf92e388e2
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_date.month_start
+	toColumn: LocalDateTable_035fb761-cbfd-48e4-a65d-9d1171bc2532.Date
+
+relationship AutoDetected_772e6e3e-59d2-4493-9e98-8576556bebdf
+	fromColumn: fact_price_index.date_key
+	toColumn: dim_date.date_key
+
+relationship AutoDetected_5945e57b-542c-4d0a-9468-e3436452470a
+	fromColumn: fact_sale.date_key
+	toColumn: dim_date.date_key
+
+relationship AutoDetected_3de8dd97-4847-4fc5-9dcd-d21992e7a944
+	fromColumn: fact_rent.date_key
+	toColumn: dim_date.date_key
+
+relationship AutoDetected_86f91899-0086-4a8a-be3b-ee63117bb56e
+	fromColumn: fact_sale.county_key
+	toColumn: dim_county.county_key
+
+relationship AutoDetected_f82100cc-8f0d-400c-915d-95e1511ae20a
+	fromColumn: fact_rent.county_key
+	toColumn: dim_county.county_key
+
+relationship AutoDetected_27c185ef-497b-4010-85e0-8937bf96c1a6
+	fromColumn: fact_income.county_key
+	toColumn: dim_county.county_key
+
+relationship AutoDetected_a6c888c2-1c1a-4353-82bc-fdfd484f3c86
+	fromColumn: county_year_affordability.county_key
+	toColumn: dim_county.county_key
+
+relationship AutoDetected_b856deeb-a408-498a-953e-efd6007d98f0
+	fromColumn: fact_price_index.geography_key
+	toColumn: dim_geography.geography_key
+
+relationship AutoDetected_b78c731d-0916-4daa-81b8-d8979a00817e
+	fromColumn: fact_sale.property_type_key
+	toColumn: dim_property_type.property_type_key
+
+relationship f4f63ef2-875f-4522-a5c7-8e0518ce693f
+	fromColumn: sale_outliers.sale_id
+	toColumn: fact_sale.sale_id
+
+relationship 60f397e6-5eaa-451c-ab3d-fe8b466d04c1
+	fromColumn: fact_income.date_key
+	toColumn: dim_date.date_key
+
+relationship 3de08ae4-00b5-40eb-9e2a-4d1eb1fa0252
+	fromColumn: dim_county.index_geography_key
+	toColumn: dim_geography.geography_key
+

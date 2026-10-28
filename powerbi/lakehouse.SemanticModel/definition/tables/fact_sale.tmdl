@@ -1,0 +1,94 @@
+table fact_sale
+	lineageTag: 6dcc7602-0e81-436c-8ea4-496486c089cb
+
+	column sale_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 8fbc0f20-0883-4f16-b991-2152ad4a7241
+		summarizeBy: sum
+		sourceColumn: sale_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column date_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 68e7b8f3-3380-44ec-a902-387dcde19dab
+		summarizeBy: none
+		sourceColumn: date_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column county_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f5b2440-b215-4082-bb91-33fdb84b0c16
+		summarizeBy: none
+		sourceColumn: county_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_type_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 243f173e-9c13-4ab5-a761-8c18c1579445
+		summarizeBy: none
+		sourceColumn: property_type_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column address
+		dataType: string
+		lineageTag: 8f904a6c-8853-493e-8290-4e179f3aa0a9
+		summarizeBy: none
+		sourceColumn: address
+
+		annotation SummarizationSetBy = Automatic
+
+	column eircode
+		dataType: string
+		lineageTag: b35bbafc-7e21-4b5a-b9e3-8ca5f558c5f2
+		summarizeBy: none
+		sourceColumn: eircode
+
+		annotation SummarizationSetBy = Automatic
+
+	column price_eur
+		dataType: double
+		lineageTag: fac0c681-dd1f-48ae-a8a3-c8aae920ebbe
+		summarizeBy: sum
+		sourceColumn: price_eur
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column is_non_market
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: 3e4a221c-48c1-42b6-a4b2-64dac6ff4a92
+		summarizeBy: none
+		sourceColumn: is_non_market
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_vat_exclusive
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e2170c19-d818-415b-8fe6-a7916a48208a
+		summarizeBy: none
+		sourceColumn: is_vat_exclusive
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fact_sale = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    fact_sale_Table = gold_Schema{[Name="fact_sale",Kind="Table"]}[Data]
+				in
+				    fact_sale_Table
+

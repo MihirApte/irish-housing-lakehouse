@@ -1,0 +1,178 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 1259.0688942200486,
+            "y": 884.24704541753113
+          },
+          "nodeIndex": "county_year_affordability",
+          "nodeLineageTag": "2b178570-6aed-401f-a963-be6b6bc835d9",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1145.3552695829335,
+            "y": 604.00577323327025
+          },
+          "nodeIndex": "dim_county",
+          "nodeLineageTag": "51d3970a-16de-45ec-9552-9c72b74d5f7f",
+          "size": {
+            "height": 224,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 457.16499243454859,
+            "y": 252.3488115100447
+          },
+          "nodeIndex": "dim_date",
+          "nodeLineageTag": "10a4b69b-c8df-474b-bcfe-e920c9df8601",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": 249.87512247208088
+          },
+          "nodeIndex": "dim_geography",
+          "nodeLineageTag": "64db95f8-4ffe-447c-8de1-a1ab77e2622f",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 688.06878372575954,
+            "y": 44.446360320849863
+          },
+          "nodeIndex": "dim_property_type",
+          "nodeLineageTag": "7978ba6c-6cbc-4385-b4c5-c577a2769138",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1501.2883659712725,
+            "y": 652.5354173950459
+          },
+          "nodeIndex": "fact_income",
+          "nodeLineageTag": "7b5bdaf7-0419-4a0c-bdbd-05ee327e7977",
+          "size": {
+            "height": 176,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 283.00074556645745,
+            "y": -50
+          },
+          "nodeIndex": "fact_price_index",
+          "nodeLineageTag": "f2def71a-b302-48cb-9b10-a742ae99abf6",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 777.71936053823242,
+            "y": 603.78385630123046
+          },
+          "nodeIndex": "fact_rent",
+          "nodeLineageTag": "7ac50459-650f-471b-9e93-fd5d61ede4ec",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 896.53174446056812,
+            "y": 251.54334443542245
+          },
+          "nodeIndex": "fact_sale",
+          "nodeLineageTag": "6dcc7602-0e81-436c-8ea4-496486c089cb",
+          "size": {
+            "height": 296,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1274.3323164366379,
+            "y": 300.73982153381814
+          },
+          "nodeIndex": "sale_outliers",
+          "nodeLineageTag": "402d8666-1946-4101-b4a0-755ba91bc8e4",
+          "size": {
+            "height": 248,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1735.2883659712725,
+            "y": 453.12352270876556
+          },
+          "nodeIndex": "_Measures",
+          "nodeLineageTag": "32f64b92-f593-4be4-b051-4da04edb2911",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 2019.2883659712725,
+            "y": 539.12352270876556
+          },
+          "nodeIndex": "Time Intelligence",
+          "nodeLineageTag": "5cf29b5b-a279-4256-8ebf-22f1873e56ed",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}

@@ -1,0 +1,132 @@
+layer,table,column,type,description
+bronze,ppr_raw,(all source columns),string,"Property Price Register as received (Windows-1252 file). Columns: date_of_sale, address, county, eircode, price, not_full_market_price, vat_exclusive, property_description, property_size_description. Every column is text exactly as received."
+bronze,ppr_raw,_source_file,string,Path of the raw file the row was loaded from
+bronze,ppr_raw,_load_date,string,Date the ingest ran (yyyy-mm-dd)
+bronze,cso_hpm09_raw,(all source columns),string,"CSO HPM09 as received. Columns: statistic, statistic_label, month_code, month, type_code, type_label, unit, value. Every column is text exactly as received."
+bronze,cso_hpm09_raw,_source_file,string,Path of the raw file the row was loaded from
+bronze,cso_hpm09_raw,_load_date,string,Date the ingest ran (yyyy-mm-dd)
+bronze,cso_rih02_raw,(all source columns),string,"CSO RIH02 as received. Columns: statistic, statistic_label, half_year_code, half_year, bedrooms_code, bedrooms, property_type_code, property_type, location_code, location, unit, value. Every column is text exactly as received."
+bronze,cso_rih02_raw,_source_file,string,Path of the raw file the row was loaded from
+bronze,cso_rih02_raw,_load_date,string,Date the ingest ran (yyyy-mm-dd)
+bronze,cso_raa02_raw,(all source columns),string,"CSO RAA02 as received. Columns: statistic, statistic_label, year_code, year, county_code, county, unit, value. Every column is text exactly as received."
+bronze,cso_raa02_raw,_source_file,string,Path of the raw file the row was loaded from
+bronze,cso_raa02_raw,_load_date,string,Date the ingest ran (yyyy-mm-dd)
+silver,ppr_sales,sale_id,int,"Surrogate id for a registered sale, ordered by sale date, address and price"
+silver,ppr_sales,sale_date,date,Date of sale parsed from dd/MM/yyyy
+silver,ppr_sales,sale_year,int,Year of sale
+silver,ppr_sales,sale_month,int,Month of sale
+silver,ppr_sales,address,string,"Address as filed, trimmed"
+silver,ppr_sales,county,string,"County, one of 26 reference counties"
+silver,ppr_sales,eircode,string,"Eircode, null when blank"
+silver,ppr_sales,price_eur,"decimal(12,2)",Price in euro as reported. Mostly excludes VAT for new homes. Not adjusted
+silver,ppr_sales,is_non_market,boolean,True when the filer marked the price as not the full market price
+silver,ppr_sales,is_vat_exclusive,boolean,True when the reported price excludes VAT
+silver,ppr_sales,property_condition,string,New or Second-hand. Irish language text mapped to English
+silver,ppr_sales,size_band,string,"Under 38 sq m, 38 to under 125 sq m, 125 sq m and over, or Not stated"
+silver,ppr_sales,_source_file,string,Raw file path
+silver,ppr_sales,_load_date,string,Ingest date
+silver,hpm09_price_index,month_start,date,First day of the month
+silver,hpm09_price_index,year,int,Year
+silver,hpm09_price_index,statistic_code,string,"HPM09C01 index, HPM09C02 1 month change, HPM09C03 3 month change, HPM09C04 12 month change"
+silver,hpm09_price_index,statistic_label,string,CSO statistic name
+silver,hpm09_price_index,type_label,string,Original CSO geography and property type label
+silver,hpm09_price_index,geography,string,Geography parsed from type_label
+silver,hpm09_price_index,property_type,string,Property type parsed from type_label
+silver,hpm09_price_index,geography_level,string,"national, national_ex_dublin, dublin, dublin_local_authority or region"
+silver,hpm09_price_index,value,"decimal(12,4)",Index value (2015 = 100) or percentage change. Null where the CSO has no value
+silver,hpm09_price_index,unit,string,Base 2015=100 or percent
+silver,hpm09_price_index,_source_file,string,Raw file path
+silver,hpm09_price_index,_load_date,string,Ingest date
+silver,rih02_rent,year,int,Year
+silver,rih02_rent,half,int,"1 for January to June, 2 for July to December"
+silver,rih02_rent,half_year,string,CSO label such as 2008H1
+silver,rih02_rent,bedrooms,string,"Bedroom category, including All bedrooms"
+silver,rih02_rent,property_type,string,"Property type category, including All property types"
+silver,rih02_rent,location_code,string,CSO location code
+silver,rih02_rent,location,string,"County, city, town or Dublin postal district"
+silver,rih02_rent,geography_level,string,"county, dublin_postal_district, town_in_county, city_or_town or other"
+silver,rih02_rent,avg_monthly_rent,"decimal(10,2)",RTB average monthly rent in euro. Null where not published (about 70 percent of rows)
+silver,rih02_rent,unit,string,Euro
+silver,rih02_rent,_source_file,string,Raw file path
+silver,rih02_rent,_load_date,string,Ingest date
+silver,income_county,year,int,Year 2000 to 2024
+silver,income_county,county,string,"County name without the Co. prefix, or Ireland"
+silver,income_county,statistic_label,string,Disposable Income per Person
+silver,income_county,unit,string,Euro
+silver,income_county,value,"decimal(14,2)","Disposable income per person in euro. Per person, not per household"
+silver,income_county,_source_file,string,Raw file path
+silver,income_county,_load_date,string,Ingest date
+silver,ref_county,county,string,County name
+silver,ref_county,province,string,"Leinster, Munster, Connacht or Ulster"
+silver,ref_county,hpm09_region,string,Region used by the CSO price index. Null for Tipperary (unassigned)
+silver,dq_log,run_id,string,Timestamp id of the quality run
+silver,dq_log,run_ts,timestamp,When the check ran
+silver,dq_log,table_name,string,Table checked
+silver,dq_log,check_name,string,Rule name
+silver,dq_log,severity,string,"error, warn or info"
+silver,dq_log,description,string,What the rule tests
+silver,dq_log,rows_checked,bigint,Rows in scope
+silver,dq_log,rows_failed,bigint,Rows that broke the rule
+silver,dq_log,status,string,"PASS, FAIL, WARN or INFO"
+gold,dim_date,date_key,int,yyyyMMdd key
+gold,dim_date,date,date,Calendar date 2005 to 2026
+gold,dim_date,year,int,Year
+gold,dim_date,quarter,int,Quarter
+gold,dim_date,month_number,int,Month number
+gold,dim_date,month_name,string,Month name
+gold,dim_date,month_start,date,First day of month
+gold,dim_date,half,int,Half year 1 or 2
+gold,dim_date,year_half,string,Label such as 2024 H1
+gold,dim_date,is_weekend,boolean,Saturday or Sunday
+gold,dim_geography,geography_key,int,Surrogate key
+gold,dim_geography,geography,string,CSO price index geography
+gold,dim_geography,geography_level,string,Level of the geography
+gold,dim_county,county_key,int,Surrogate key
+gold,dim_county,county_name,string,County
+gold,dim_county,province,string,Province
+gold,dim_county,hpm09_region,string,"CSO price index region, null for Tipperary"
+gold,dim_county,is_dublin,boolean,True for Dublin
+gold,dim_county,index_geography_key,int,Link to dim_geography for the county's index region. Null for Tipperary
+gold,dim_property_type,property_type_key,int,Surrogate key
+gold,dim_property_type,property_condition,string,New or Second-hand
+gold,dim_property_type,size_band,string,Size band
+gold,fact_sale,sale_id,int,Sale id. Grain: one row per registered sale after removing fully identical duplicates
+gold,fact_sale,date_key,int,Join to dim_date
+gold,fact_sale,county_key,int,Join to dim_county
+gold,fact_sale,property_type_key,int,Join to dim_property_type
+gold,fact_sale,address,string,Address as filed
+gold,fact_sale,eircode,string,Eircode
+gold,fact_sale,price_eur,"decimal(12,2)",Price in euro as reported
+gold,fact_sale,is_non_market,boolean,Not full market price flag
+gold,fact_sale,is_vat_exclusive,boolean,Price excludes VAT flag
+gold,fact_price_index,date_key,int,"First day of month, join to dim_date"
+gold,fact_price_index,geography_key,int,Join to dim_geography
+gold,fact_price_index,property_type,string,"houses, apartments or all residential properties"
+gold,fact_price_index,statistic_code,string,HPM09C01 to HPM09C04
+gold,fact_price_index,statistic_label,string,Statistic name
+gold,fact_price_index,unit,string,Base 2015=100 or percent
+gold,fact_price_index,value,"decimal(12,4)","Value. Grain: month, geography, property type and statistic"
+gold,fact_rent,date_key,int,"First day of the half year, join to dim_date"
+gold,fact_rent,county_key,int,Join to dim_county
+gold,fact_rent,bedrooms,string,Bedroom category
+gold,fact_rent,property_type,string,Property type category
+gold,fact_rent,avg_monthly_rent,"decimal(10,2)","Average monthly rent in euro. Grain: county, half year, bedrooms and property type. County level rows with a value only"
+gold,fact_income,date_key,int,Year start date key
+gold,fact_income,year,int,Year
+gold,fact_income,county_key,int,Join to dim_county
+gold,fact_income,disposable_income_per_person_eur,"decimal(14,2)",Disposable income per person in euro. Grain: county and year
+gold,county_year_affordability,county_key,int,Join to dim_county
+gold,county_year_affordability,year,int,Year
+gold,county_year_affordability,median_price,double,Median market sale price in euro
+gold,county_year_affordability,market_sales,bigint,Number of market sales
+gold,county_year_affordability,disposable_income_per_person_eur,"decimal(14,2)",Income per person
+gold,county_year_affordability,avg_monthly_rent,double,"Average of half year county rents, all bedrooms and all property types"
+gold,county_year_affordability,price_to_income,double,Median price divided by disposable income per person
+gold,county_year_affordability,price_to_rent,double,Median price divided by twelve times average monthly rent
+gold,sale_outliers,sale_id,int,Join to fact_sale
+gold,sale_outliers,county_key,int,Join to dim_county
+gold,sale_outliers,year,int,Year
+gold,sale_outliers,property_condition,string,New or Second-hand
+gold,sale_outliers,price_eur,"decimal(12,2)",Sale price in euro
+gold,sale_outliers,typical_price_eur,double,"Typical price (log midpoint of quartiles) for the county, year and condition group"
+gold,sale_outliers,direction,string,high or low. Flagged when log price is more than 3 interquartile ranges outside the quartiles

@@ -1,0 +1,37 @@
+table 'Time Intelligence'
+	lineageTag: 5cf29b5b-a279-4256-8ebf-22f1873e56ed
+
+	calculationGroup
+
+		calculationItem Current = SELECTEDMEASURE ()
+
+		calculationItem YoY =
+				SELECTEDMEASURE ()
+				    - CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( dim_date[date] ) )
+
+		calculationItem 'YoY %' =
+				DIVIDE (
+				    SELECTEDMEASURE ()
+				        - CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( dim_date[date] ) ),
+				    CALCULATE ( SELECTEDMEASURE (), SAMEPERIODLASTYEAR ( dim_date[date] ) )
+				)
+
+			formatStringDefinition = "0.0%"
+
+		calculationItem YTD = CALCULATE ( SELECTEDMEASURE (), DATESYTD ( dim_date[date] ) )
+
+	column 'Time Calc'
+		dataType: string
+		lineageTag: f1320bb3-c837-4346-833c-948c606feb36
+		summarizeBy: none
+		sourceColumn: Name
+		sortByColumn: Ordinal
+
+	column Ordinal
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 2811b5b7-c361-4f72-9626-6f39e9cf781e
+		summarizeBy: none
+		sourceColumn: Ordinal
+

@@ -1,0 +1,65 @@
+table dim_county
+	lineageTag: 51d3970a-16de-45ec-9552-9c72b74d5f7f
+
+	column county_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 6bea6a99-89aa-46cf-b509-e2f673ddf7f2
+		summarizeBy: none
+		sourceColumn: county_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column county_name
+		dataType: string
+		lineageTag: c569b4a6-8f57-4e5d-a8b2-6b34ff706c59
+		summarizeBy: none
+		sourceColumn: county_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column province
+		dataType: string
+		lineageTag: 8302f375-a799-4770-a83d-02daeace44f7
+		summarizeBy: none
+		sourceColumn: province
+
+		annotation SummarizationSetBy = Automatic
+
+	column hpm09_region
+		dataType: string
+		lineageTag: 05240e8e-5c6c-48c0-b612-8b7389bc4761
+		summarizeBy: none
+		sourceColumn: hpm09_region
+
+		annotation SummarizationSetBy = Automatic
+
+	column is_dublin
+		dataType: boolean
+		formatString: """TRUE"";""TRUE"";""FALSE"""
+		lineageTag: e3312960-2d97-4190-b0f2-b15c643154fd
+		summarizeBy: none
+		sourceColumn: is_dublin
+
+		annotation SummarizationSetBy = Automatic
+
+	column index_geography_key
+		dataType: int64
+		formatString: 0
+		lineageTag: bd1d98ed-c612-4f7f-b183-30d43953af94
+		summarizeBy: sum
+		sourceColumn: index_geography_key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_county = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_county_Table = gold_Schema{[Name="dim_county",Kind="Table"]}[Data]
+				in
+				    dim_county_Table
+

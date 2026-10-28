@@ -1,0 +1,34 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	discourageImplicitMeasures
+	sourceQueryCulture: en-US
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["dim_date","dim_county","dim_geography","dim_property_type","fact_price_index","fact_sale","fact_rent","fact_income","county_year_affordability","sale_outliers","_Measures"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table dim_date
+ref table DateTableTemplate_a1dc7648-7ff7-454c-874b-2c4bbec22c97
+ref table LocalDateTable_26ab332d-f2c3-432d-a2d7-e93ec37a4e2b
+ref table LocalDateTable_035fb761-cbfd-48e4-a65d-9d1171bc2532
+ref table dim_county
+ref table dim_geography
+ref table dim_property_type
+ref table fact_price_index
+ref table fact_sale
+ref table fact_rent
+ref table fact_income
+ref table county_year_affordability
+ref table sale_outliers
+ref table _Measures
+ref table 'Time Intelligence'
+
+ref cultureInfo en-US
+

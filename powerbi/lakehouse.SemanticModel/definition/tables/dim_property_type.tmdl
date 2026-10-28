@@ -1,0 +1,39 @@
+table dim_property_type
+	lineageTag: 7978ba6c-6cbc-4385-b4c5-c577a2769138
+
+	column property_type_key
+		dataType: int64
+		formatString: 0
+		lineageTag: 7e917d21-a187-4c55-994d-d611425d8d31
+		summarizeBy: none
+		sourceColumn: property_type_key
+
+		annotation SummarizationSetBy = Automatic
+
+	column property_condition
+		dataType: string
+		lineageTag: fe48b821-fed3-4e10-bf6e-28b6aa53a02e
+		summarizeBy: none
+		sourceColumn: property_condition
+
+		annotation SummarizationSetBy = Automatic
+
+	column size_band
+		dataType: string
+		lineageTag: 893ead97-5279-4cfb-98c6-034ac88f11be
+		summarizeBy: none
+		sourceColumn: size_band
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_property_type = m
+		mode: import
+		source =
+				let
+				    Source = Databricks.Catalogs("dbc-ad2073d6-6dd5.cloud.databricks.com", "/sql/1.0/warehouses/7e66a446014539e6", [Catalog=null, Database=null, QueryTags=null, EnableAutomaticProxyDiscovery=null, Implementation="2.0", Protocol=null]),
+				    workspace_Database = Source{[Name="workspace",Kind="Database"]}[Data],
+				    gold_Schema = workspace_Database{[Name="gold",Kind="Schema"]}[Data],
+				    dim_property_type_Table = gold_Schema{[Name="dim_property_type",Kind="Table"]}[Data]
+				in
+				    dim_property_type_Table
+
